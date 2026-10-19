@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-store">
+<meta name="theme-color" content="#061827">
+<title>Tempo e Câmbio - Foz do Iguaçu</title>
+<style>
+html,body{margin:0!important;width:100%!important;height:100%!important;background:#061827!important;overflow:hidden!important}
+:root{
+  --bg1:#061827;
+  --bg2:#0d3450;
+  --bg3:#146486;
+  --muted:rgba(255,255,255,.74);
+  --glass:rgba(255,255,255,.10);
+  --glass2:rgba(255,255,255,.16);
+}
+*{box-sizing:border-box}
+body{
+  background:#061827;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+}
+#stage{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:2160px;
+  height:3840px;
+  transform-origin:center center;
+}
+.screen{
+  width:2160px;
+  height:3840px;
+  padding:120px 120px 90px;
+  display:flex;
+  flex-direction:column;
+  background:
+    radial-gradient(circle at 82% 7%, rgba(255,255,255,.18), transparent 20%),
+    radial-gradient(circle at 12% 82%, rgba(255,255,255,.08), transparent 25%),
+    linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+}
+.header{text-align:center}
+.kicker{
+  font-size:50px;
+  letter-spacing:10px;
+  font-weight:800;
+  opacity:.78;
+}
+.city{
+  margin-top:26px;
+  font-size:132px;
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-3px;
+}
+.date{
+  margin-top:16px;
+  font-size:54px;
+  color:var(--muted);
+}
+.hero{
+  text-align:center;
+  margin-top:40px;
+}
+.icon{
+  font-size:250px;
+  line-height:1;
+  filter:drop-shadow(0 26px 30px rgba(0,0,0,.18));
+}
+.temp{
+  margin-top:4px;
+  font-size:310px;
+  line-height:.82;
+  font-weight:900;
+  letter-spacing:-20px;
+}
+.condition{
+  margin-top:30px;
+  font-size:74px;
+  font-weight:800;
+}
+.details{
+  margin:24px auto 0;
+  max-width:1650px;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.pill{
+  background:var(--glass2);
+  border:2px solid rgba(255,255,255,.16);
+  border-radius:50px;
+  padding:18px 28px;
+  font-size:38px;
+  font-weight:700;
+}
+
+.content{
+  margin-top:46px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+  flex:1;
+  min-height:0;
+}
+
+.panel{
+  background:rgba(255,255,255,.08);
+  border:2px solid rgba(255,255,255,.14);
+  border-radius:40px;
+  padding:30px 28px 28px;
+}
+.block-title{
+  text-align:center;
+  font-size:52px;
+  font-weight:900;
+  margin-bottom:26px;
+  letter-spacing:1px;
+}
+
+.forecast{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.day{
+  background:rgba(255,255,255,.12);
+  border:2px solid rgba(255,255,255,.15);
+  border-radius:34px;
+  padding:26px 12px 22px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:255px;
+}
+.dname{
+  font-size:40px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.dicon{
+  font-size:82px;
+  margin:18px 0 12px;
+}
+.temps{
+  font-size:52px;
+  font-weight:900;
+}
+.min{
+  opacity:.64;
+  margin-left:10px;
+}
+
+.exchange{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+.rate{
+  background:rgba(255,255,255,.14);
+  border:2px solid rgba(255,255,255,.18);
+  border-radius:34px;
+  padding:28px 30px;
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.flag{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:14px;
+}
+.flag-svg{
+  width:190px;
+  height:120px;
+  display:block;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.22);
+}
+.rate-main{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.r-label{
+  font-size:36px;
+  text-transform:uppercase;
+  font-weight:900;
+  color:rgba(255,255,255,.9);
+  line-height:1.12;
+}
+.r-value{
+  margin-top:12px;
+  font-size:94px;
+  font-weight:900;
+  line-height:1;
+}
+.r-note{
+  margin-top:10px;
+  font-size:30px;
+  color:var(--muted);
+}
+
+.footer{
+  margin-top:24px;
+  text-align:center;
+  border-top:2px solid rgba(255,255,255,.14);
+  padding-top:22px;
+}
+.clock{
+  font-size:70px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+.updated{
+  margin-top:12px;
+  font-size:31px;
+  color:var(--muted);
+}
+.status{
+  margin-top:8px;
+  font-size:24px;
+  color:rgba(255,255,255,.62);
+}
+</style>
+</head>
+<body style="background:#061827;">
+<div id="stage">
+<div class="screen">
+  <header class="header">
+    <div class="kicker">TEMPO E CÂMBIO</div>
+    <div class="city">FOZ DO IGUAÇU</div>
+    <div class="date" id="date">—</div>
+  </header>
+
+  <section class="hero">
+    <div class="icon" id="icon">🌤️</div>
+    <div class="temp" id="temp">--°</div>
+    <div class="condition" id="condition">Carregando previsão...</div>
+    <div class="details">
+      <div class="pill" id="feels">Sensação --°C</div>
+      <div class="pill" id="humidity">Umidade --%</div>
+      <div class="pill" id="wind">Vento -- km/h</div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="panel">
+      <div class="block-title">PRÓXIMOS DIAS</div>
+      <div class="forecast" id="forecast"></div>
+    </div>
+
+    <div class="panel">
+      <div class="block-title">CÂMBIO</div>
+      <div class="exchange">
+        <div class="rate">
+          <div class="flag">
+<svg class="flag-svg" viewBox="0 0 190 120" xmlns="http://www.w3.org/2000/svg" aria-label="Estados Unidos">
+  <rect width="190" height="120" fill="#fff"/>
+  <g fill="#b22234">
+    <rect y="0" width="190" height="9.23"/>
+    <rect y="18.46" width="190" height="9.23"/>
+    <rect y="36.92" width="190" height="9.23"/>
+    <rect y="55.38" width="190" height="9.23"/>
+    <rect y="73.84" width="190" height="9.23"/>
+    <rect y="92.30" width="190" height="9.23"/>
+    <rect y="110.76" width="190" height="9.24"/>
+  </g>
+  <rect width="76" height="64.6" fill="#3c3b6e"/>
+  <g fill="#fff">
+    <circle cx="8" cy="8" r="2.2"/><circle cx="20" cy="8" r="2.2"/><circle cx="32" cy="8" r="2.2"/><circle cx="44" cy="8" r="2.2"/><circle cx="56" cy="8" r="2.2"/><circle cx="68" cy="8" r="2.2"/>
+    <circle cx="14" cy="18" r="2.2"/><circle cx="26" cy="18" r="2.2"/><circle cx="38" cy="18" r="2.2"/><circle cx="50" cy="18" r="2.2"/><circle cx="62" cy="18" r="2.2"/>
+    <circle cx="8" cy="28" r="2.2"/><circle cx="20" cy="28" r="2.2"/><circle cx="32" cy="28" r="2.2"/><circle cx="44" cy="28" r="2.2"/><circle cx="56" cy="28" r="2.2"/><circle cx="68" cy="28" r="2.2"/>
+    <circle cx="14" cy="38" r="2.2"/><circle cx="26" cy="38" r="2.2"/><circle cx="38" cy="38" r="2.2"/><circle cx="50" cy="38" r="2.2"/><circle cx="62" cy="38" r="2.2"/>
+    <circle cx="8" cy="48" r="2.2"/><circle cx="20" cy="48" r="2.2"/><circle cx="32" cy="48" r="2.2"/><circle cx="44" cy="48" r="2.2"/><circle cx="56" cy="48" r="2.2"/><circle cx="68" cy="48" r="2.2"/>
+    <circle cx="14" cy="58" r="2.2"/><circle cx="26" cy="58" r="2.2"/><circle cx="38" cy="58" r="2.2"/><circle cx="50" cy="58" r="2.2"/><circle cx="62" cy="58" r="2.2"/>
+  </g>
+</svg>
+</div>
+          <div class="rate-main">
+            <div class="r-label">Dólar</div>
+            <div class="r-value" id="usd">R$ --,--</div>
+            <div class="r-note">1 USD = valor em reais</div>
+          </div>
+        </div>
+        <div class="rate">
+          <div class="flag">
+<svg class="flag-svg" viewBox="0 0 190 120" xmlns="http://www.w3.org/2000/svg" aria-label="Argentina">
+  <rect width="190" height="120" fill="#74acdf"/>
+  <rect y="40" width="190" height="40" fill="#fff"/>
+  <circle cx="95" cy="60" r="12" fill="#f6b40e"/>
+  <g stroke="#f6b40e" stroke-width="2">
+    <line x1="95" y1="42" x2="95" y2="34"/>
+    <line x1="95" y1="78" x2="95" y2="86"/>
+    <line x1="77" y1="60" x2="69" y2="60"/>
+    <line x1="113" y1="60" x2="121" y2="60"/>
+    <line x1="82" y1="47" x2="76" y2="41"/>
+    <line x1="108" y1="73" x2="114" y2="79"/>
+    <line x1="108" y1="47" x2="114" y2="41"/>
+    <line x1="82" y1="73" x2="76" y2="79"/>
+  </g>
+</svg>
+</div>
+          <div class="rate-main">
+            <div class="r-label">Peso Argentino</div>
+            <div class="r-value" id="ars">--,-- ARS</div>
+            <div class="r-note">1 BRL = valor em pesos</div>
+          </div>
+        </div>
+        <div class="rate">
+          <div class="flag">
+<svg class="flag-svg" viewBox="0 0 190 120" xmlns="http://www.w3.org/2000/svg" aria-label="Paraguai">
+  <rect width="190" height="40" fill="#d52b1e"/>
+  <rect y="40" width="190" height="40" fill="#fff"/>
+  <rect y="80" width="190" height="40" fill="#0038a8"/>
+  <circle cx="95" cy="60" r="14" fill="#fff" stroke="#2e7d32" stroke-width="3"/>
+  <circle cx="95" cy="60" r="5" fill="#f2c94c"/>
+</svg>
+</div>
+          <div class="rate-main">
+            <div class="r-label">Guarani</div>
+            <div class="r-value" id="pyg">---- PYG</div>
+            <div class="r-note">1 BRL = valor em guaranis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="clock" id="clock">--:--</div>
+    <div class="updated" id="updated">Atualização automática</div>
+    <div class="status" id="status"></div>
+  </footer>
+</div>
+</div>
+
+<script>
+const LAT=-25.5163, LON=-54.5854, TZ='America/Sao_Paulo';
+
+function info(code,isDay=1){
+  const m={
+    0:[isDay?'☀️':'🌙','Céu limpo'],
+    1:['🌤️','Poucas nuvens'],
+    2:['⛅','Parcialmente nublado'],
+    3:['☁️','Nublado'],
+    45:['🌫️','Neblina'],
+    48:['🌫️','Neblina'],
+    51:['🌦️','Garoa'],
+    53:['🌦️','Garoa'],
+    55:['🌧️','Garoa forte'],
+    61:['🌦️','Chuva fraca'],
+    63:['🌧️','Chuva'],
+    65:['🌧️','Chuva forte'],
+    80:['🌦️','Pancadas de chuva'],
+    81:['🌧️','Pancadas de chuva'],
+    82:['⛈️','Pancadas fortes'],
+    95:['⛈️','Trovoadas'],
+    96:['⛈️','Trovoadas'],
+    99:['⛈️','Trovoadas fortes']
+  };
+  return m[code]||['🌤️','Tempo variável'];
+}
+function fmtInt(v){return Number.isFinite(Number(v))?Math.round(Number(v)):'--'}
+function fmtRate(v, digits){
+  const n = Number(v);
+  if(!Number.isFinite(n)) return '--';
+  return n.toFixed(digits).replace('.', ',');
+}
+function fmtWhole(v){
+  const n = Number(v);
+  if(!Number.isFinite(n)) return '--';
+  return Math.round(n).toLocaleString('pt-BR');
+}
+
+function fit(){
+  const s=Math.min(innerWidth/2160,innerHeight/3840);
+  document.getElementById('stage').style.transform=`translate(-50%,-50%) scale(${s})`;
+}
+addEventListener('resize',fit);fit();
+
+function updateClock(){
+  const n=new Date();
+  clock.textContent=new Intl.DateTimeFormat('pt-BR',{
+    timeZone:TZ,hour:'2-digit',minute:'2-digit'
+  }).format(n);
+  date.textContent=new Intl.DateTimeFormat('pt-BR',{
+    timeZone:TZ,weekday:'long',day:'2-digit',month:'long'
+  }).format(n).replace(/^./,c=>c.toUpperCase());
+}
+
+async function loadWeather(){
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=${encodeURIComponent(TZ)}&forecast_days=5`;
+  const r=await fetch(url,{cache:'no-store'});
+  const d=await r.json();
+  const c=d.current;
+  const w=info(Number(c.weather_code),Number(c.is_day));
+
+  icon.textContent=w[0];
+  temp.textContent=fmtInt(c.temperature_2m)+'°';
+  condition.textContent=w[1];
+  feels.textContent='Sensação '+fmtInt(c.apparent_temperature)+'°C';
+  humidity.textContent='Umidade '+fmtInt(c.relative_humidity_2m)+'%';
+  wind.textContent='Vento '+fmtInt(c.wind_speed_10m)+' km/h';
+
+  forecast.innerHTML='';
+  for(let i=1;i<5;i++){
+    const dt=new Date(d.daily.time[i]+'T12:00:00');
+    const dn=new Intl.DateTimeFormat('pt-BR',{weekday:'short',timeZone:TZ}).format(dt).replace('.','');
+    const wi=info(Number(d.daily.weather_code[i]),1);
+    forecast.innerHTML += `
+      <div class="day">
+        <div class="dname">${dn}</div>
+        <div class="dicon">${wi[0]}</div>
+        <div class="temps">${fmtInt(d.daily.temperature_2m_max[i])}° <span class="min">${fmtInt(d.daily.temperature_2m_min[i])}°</span></div>
+      </div>`;
+  }
+}
+
+async function loadExchange(){
+  try{
+    const r = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL,ARS-BRL,PYG-BRL', {cache:'no-store'});
+    const d = await r.json();
+
+    const usdBid = Number(d.USDBRL?.bid);
+    const arsBr = Number(d.ARSBRL?.bid);
+    const pygBr = Number(d.PYGBRL?.bid);
+
+    usd.textContent = 'R$ ' + fmtRate(usdBid, 2);
+    ars.textContent = fmtRate(1/arsBr, 2) + ' ARS';
+    pyg.textContent = fmtWhole(1/pygBr) + ' PYG';
+  }catch(e){
+    status.textContent='Sem conexão com o câmbio no momento.';
+  }
+}
+
+async function loadAll(){
+  status.textContent='Atualizando informações...';
+  try{
+    await Promise.all([loadWeather(), loadExchange()]);
+    updated.textContent='Clima e câmbio atualizados automaticamente';
+    status.textContent='Clima: 15 min • Câmbio: 10 min';
+  }catch(e){
+    updated.textContent='Sem conexão com uma ou mais fontes. Nova tentativa automática.';
+    status.textContent='Verifique a conexão de internet do equipamento.';
+  }
+}
+
+updateClock();
+setInterval(updateClock,1000);
+loadAll();
+setInterval(loadWeather, 15*60*1000);
+setInterval(loadExchange, 10*60*1000);
+</script>
+</body>
+</html>
